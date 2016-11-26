@@ -10,8 +10,10 @@
     ],
     "minimum-stability": "dev",
     "autoload": {
-		"files": ["vendor/bmers/mundane/src/DB.php"]    
-	},	
+        "psr-4": {
+            "BMERS\\": "bmers/mundane/src/"
+        }
+    },	
     "require": {
         "bmers/mundane": "dev-master"
     }
