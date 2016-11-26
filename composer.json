@@ -11,7 +11,8 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "BMERS\\": "mundane/src/"
+            "mundane\\": "src/",
+			"Vendor\\BMERS\\": ""
         }
     },	
     "require": {
