@@ -15,6 +15,6 @@
         }
     },	
     "require": {
-        "bmers/mundane": "dev-master"
+        "bmers": "dev-master"
     }
 }
