@@ -9,6 +9,11 @@
         }
     ],
     "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "mundane\\": "src/"
+        }
+    }	
     "require": {
         "bmers/mundane": "dev-master"
     }
