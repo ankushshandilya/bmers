@@ -1,6 +1,7 @@
 {
     "name": "bmers/mundane",
-    "description": "Behind Methods mundane tasks",
+    "description": "Day to Day",
+    "type": "library",
     "authors": [
         {
             "name": "Ankush Sharma",
