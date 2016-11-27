@@ -8,13 +8,12 @@
             "email": "behindmethods@gmail.com"
         }
     ],
+	"license": "proprietary",
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "BMERS\\": "src/"
         }
     },	
-    "require": {
-        "bmers/mundane": "dev-master"
-    }
+    "require": {}
 }
