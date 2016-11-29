@@ -17,11 +17,11 @@ class DB {
     public $Error    = ""; 
     public $data = NULL;
     
-    protected $debug = false;
-    protected $table = NULL;
-    protected $sql = NULL;
-    protected $created_at = true;
-    protected $updated_at = true;
+    public $debug = false;
+    public $table = NULL;
+    public $sql = NULL;
+    public $created_at = true;
+    public $updated_at = true;
 
     public function __construct($host, $db, $user, $pass){
         $this->Host     = $host; 
