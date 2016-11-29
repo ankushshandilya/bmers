@@ -1,5 +1,7 @@
 <?php 
 namespace BMERS;
+use \PDO;
+use \stdClass;
 class DB {
     private $Host     = DB_HOST; 
     private $Database = DB_NAME; 
