@@ -3,10 +3,10 @@ namespace BMERS;
 use \PDO;
 use \stdClass;
 class DB {
-    private $Host     = DB_HOST; 
-    private $Database = DB_NAME; 
-    private $User     = DB_USER; 
-    private $Password = DB_PASS; 
+    private $Host     = null; 
+    private $Database = null; 
+    private $User     = null; 
+    private $Password = null; 
 
     public $Link_ID  = false;   // Result of mysql_connect(). 
     public $Query_ID ;          // Result of most recent mysql_query(). 
