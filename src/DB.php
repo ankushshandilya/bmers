@@ -168,7 +168,7 @@ class DB {
 	}
 
 	public function set($table){
-        $this->table = $table."s";
+        $this->table = $table;
         return $this;
 	}
 
