@@ -157,9 +157,9 @@ class DB {
         return $this;
 	}
     
-    public function takeCols($cols = []){
+    public function takeCols($cols = [], $clause = NULL){
         if(count($cols)):
-            $this->sql = "SELECT ".implode(',',$cols)." FROM {$this->table}";
+            $this->sql = "SELECT ".implode(',',$cols)." FROM {$this->table} $clause";
             $this->query($this->sql);
             return $this;
         else:
