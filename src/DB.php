@@ -94,6 +94,7 @@ class DB {
 
 	public function create(){
         if($this->created_at) $this->data->created_at = date('Y-m-d H:i:s');
+        if($this->updated_at) $this->data->updated_at = date('Y-m-d H:i:s');
         $array = get_object_vars($this->data);
 		$this->connect(); 				
 		$this->sql = "INSERT INTO {$this->table} (" . implode(',',array_keys($array)) ." )
