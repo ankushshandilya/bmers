@@ -119,7 +119,11 @@ class DB {
 		$temp = "";
         if($this->debug):
             foreach($this->data as $k=>$v):
-            $temp .= $k . " = '" . $v . "', ";
+                if($v == NULL):
+                    $temp .= $k . " = ". NULL . ", ";
+                else:
+                    $temp .= $k . " = '" . $v . "', ";
+                endif;
             endforeach;		
             echo "UPDATE {$this->table} SET ". rtrim($temp, ", ") ." WHERE ".($col == NULL ? 'id' : $col) ." = $id";
         else:
