@@ -204,13 +204,13 @@ class DB {
         
         $this->connect();
         $this->sql = "INSERT INTO {$this->table} (mime, $blobColName)
-        VALUES(:mime,:$blob)";
+        VALUES(:mime,:$blobColName)";
 
         $statement = $this->Link_ID->prepare($this->sql);
         
-        $statement->bindParam(':mime', $mime);
-        $statement->bindParam(':'.$blobColName, $blob, PDO::PARAM_LOB);
-        return $statement->execute() ? $this : false;        
+        $statement->bindParam(":mime", $mime);
+        $statement->bindParam(":$blobColName", $blob, PDO::PARAM_LOB);
+        return $statement->execute() ? $this : false;      
     }       
 
     /**
@@ -227,14 +227,14 @@ class DB {
  
         $this->sql = "UPDATE {$this->table}
                 SET mime = :mime,
-                    $blobColName = :data
+                    $blobColName = :$blobColName
                 WHERE id = :id;";
  
         $statement = $this->Link_ID->prepare($this->sql);
  
-        $statement->bindParam(':mime', $mime);
-        $statement->bindParam(':data', $blob, PDO::PARAM_LOB);
-        $statement->bindParam(':id', $id);
+        $statement->bindParam(":mime", $mime);
+        $statement->bindParam(":$blobColName", $blob, PDO::PARAM_LOB);
+        $statement->bindParam(":id", $id);
         return $statement->execute();
     }
     
