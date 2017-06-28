@@ -208,8 +208,8 @@ class DB {
 
         $statement = $this->Link_ID->prepare($this->sql);
         
-        $stmt->bindParam(':mime', $mime);
-        $stmt->bindParam(':'.$blobColName, $blob, PDO::PARAM_LOB);
+        $statement->bindParam(':mime', $mime);
+        $statement->bindParam(':'.$blobColName, $blob, PDO::PARAM_LOB);
         return $statement->execute() ? $this : false;        
     }       
 
@@ -230,12 +230,12 @@ class DB {
                     $blobColName = :data
                 WHERE id = :id;";
  
-        $stmt = $this->Link_ID->prepare($this->sql);
+        $statement = $this->Link_ID->prepare($this->sql);
  
-        $stmt->bindParam(':mime', $mime);
-        $stmt->bindParam(':data', $blob, PDO::PARAM_LOB);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
+        $statement->bindParam(':mime', $mime);
+        $statement->bindParam(':data', $blob, PDO::PARAM_LOB);
+        $statement->bindParam(':id', $id);
+        return $statement->execute();
     }
     
     /**
