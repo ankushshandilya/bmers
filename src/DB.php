@@ -211,7 +211,31 @@ class DB {
         $statement->bindParam(":mime", $mime);
         $statement->bindParam(":$blobColName", $blob, PDO::PARAM_LOB);
         return $statement->execute() ? $this : false;      
+    }  
+    
+    public function insertBlobFromURL($filePath, $mime, $blobColName) {
+        $ch = curl_init();
+        // set URL and other appropriate options
+        $theurl = $filePath;
+        curl_setopt($ch, CURLOPT_URL, $theurl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        // grab URL and pass it to the browser
+        $blob = file_get_contents($theurl);;//curl_exec($ch);
+        // close cURL resource, and free up system resources
+        curl_close($ch);        
+
+        $this->connect();
+        $this->sql = "INSERT INTO {$this->table} (mime, $blobColName)
+        VALUES(:mime,:$blobColName)";
+
+        $statement = $this->Link_ID->prepare($this->sql);
+        
+        $statement->bindParam(":mime", $mime);
+        $statement->bindParam(":$blobColName", $blob, PDO::PARAM_LOB);
+        return $statement->execute() ? $this : false;      
     }       
+        
 
     /**
      * update the files table with the new blob from the file specified
@@ -229,7 +253,7 @@ class DB {
                 SET mime = :mime,
                     $blobColName = :$blobColName
                 WHERE id = :id;";
- 
+        $this->connect(); 
         $statement = $this->Link_ID->prepare($this->sql);
  
         $statement->bindParam(":mime", $mime);
@@ -238,6 +262,32 @@ class DB {
         return $statement->execute();
     }
     
+    function updateBlobFromURL($id, $filePath, $mime, $blobColName) {
+ 
+        $ch = curl_init();
+        // set URL and other appropriate options
+        $theurl = $filePath;
+        curl_setopt($ch, CURLOPT_URL, $theurl);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        // grab URL and pass it to the browser
+        $blob = file_get_contents($theurl);;//curl_exec($ch);
+        // close cURL resource, and free up system resources
+        curl_close($ch);          
+        
+        $this->connect();
+        $this->sql = "UPDATE {$this->table}
+                SET mime = :mime,
+                    $blobColName = :$blobColName
+                WHERE id = :id;";
+ 
+        $statement = $this->Link_ID->prepare($this->sql);
+ 
+        $statement->bindParam(":mime", $mime);
+        $statement->bindParam(":$blobColName", $blob, PDO::PARAM_LOB);
+        $statement->bindParam(":id", $id);
+        return $statement->execute();
+    }    
     /**
      * select data from the the files
      * @param int $id
