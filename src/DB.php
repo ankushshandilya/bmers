@@ -203,8 +203,8 @@ class DB {
         $blob = fopen($filePath, 'rb');
         
         $this->connect();
-        $this->sql = "INSERT INTO {$this->table} (" . implode(',', array_keys($array)) . " )
-        VALUES ( :" . implode(" , :", array_keys($array)) . ")";
+        $this->sql = "INSERT INTO {$this->table} (mime, $blobColName)
+        VALUES(:mime,:$blob)";
 
         $statement = $this->Link_ID->prepare($this->sql);
         
