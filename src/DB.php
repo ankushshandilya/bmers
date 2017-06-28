@@ -244,11 +244,12 @@ class DB {
      * @return array contains mime type and BLOB data
      */
     public function selectBlob($id, $blobColName) {
- 
-        $this->sql = "SELECT mime, $blobColName FROM {$this->table}  WHERE id = :id;";
+        $this->connect();  
+        $this->sql = "SELECT mime, $blobColName FROM {$this->table}  WHERE id = $id";
         $this->query($this->sql);
         return $this;
     }
+
     
     
 }
