@@ -55,6 +55,20 @@ class DB {
             $this->halt("Invalid SQL: " . $Query_String);
         return $this->Query_ID;
     }
+    
+    //RUN AND QUERY IN FACT IS THE SAME BUT RUN HAS NO PARAM
+    //RUN ASSUME $this->Model->sql has value
+    public function run() {
+        $this->connect();
+        $this->Query_ID = $this->Link_ID->query($this->Model->sql);
+
+        $this->Row = 0;
+        $this->Errno = $this->Link_ID->errorInfo()[1];
+        $this->Error = $this->Link_ID->errorInfo()[2];
+        if (!$this->Query_ID)
+            $this->halt("Invalid SQL: " . $this->Model->sql);
+        return $this->Query_ID;
+    }    
 
     public function halt($msg) {
         if (ENVIRONMENT):
@@ -182,7 +196,50 @@ class DB {
         $this->table = $table;
         return $this;
     }
+    
+    public function select(){
+        $this->Model->sql = "SELECT ";
+        return $this;
+    }
+    public function fields($fields = []){
+        $this->Model->sql .= implode(',', $fields);
+        return $this;
+    }
+    
+    public function on($left, $right){
+        $this->Model->sql .= "ON $left = $right ";
+        return $this;
+    }
+    
+    public function join($table){
+        $this->Model->sql .= "JOIN $table ";
+        return $this;
+    }
+    public function leftJoin(){
+        $this->Model->sql .= "LEFT JOIN $table ";
+        return $this;
+    }
+    
+    public function rightJoin(){
+        $this->Model->sql .= "RIGHT JOIN $table ";
+        return $this;
+    }
+    
+    public function where($where){
+        $this->Model->sql .= "WHERE $where ";
+        return $this;
+    }    
 
+    public function aand($and){
+        $this->Model->sql .= "AND $and ";
+        return $this;
+    }    
+    
+    public function clause($clause){
+        $this->Model->sql .= "$clause ";
+        return $this;
+    }
+    
     public function dump($pr = false) {
         echo '<pre>';
         $pr ? print_r($this) : var_dump($this);
