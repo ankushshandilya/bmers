@@ -202,46 +202,46 @@ class DB {
         return $this;
     }
     public function fields($fields = []){
-        $this->sql .= implode(',', $fields);
+        $this->sql .= implode(', ', $fields);
         return $this;
     }
     
     public function from($table){
-        $this->sql .= "FROM $table ";
+        $this->sql .= " FROM $table ";
         return $this;
     }
     
     public function on($left, $right){
-        $this->sql .= "ON $left = $right ";
+        $this->sql .= " ON $left = $right ";
         return $this;
     }
     
     public function join($table){
-        $this->sql .= "JOIN $table ";
+        $this->sql .= " JOIN $table ";
         return $this;
     }
     public function leftJoin(){
-        $this->sql .= "LEFT JOIN $table ";
+        $this->sql .= " LEFT JOIN $table ";
         return $this;
     }
     
     public function rightJoin(){
-        $this->sql .= "RIGHT JOIN $table ";
+        $this->sql .= " RIGHT JOIN $table ";
         return $this;
     }
     
     public function where($where){
-        $this->sql .= "WHERE $where ";
+        $this->sql .= " WHERE $where ";
         return $this;
     }    
 
     public function aand($and){
-        $this->sql .= "AND $and ";
+        $this->sql .= " AND $and ";
         return $this;
     }    
     
     public function clause($clause){
-        $this->sql .= "$clause ";
+        $this->sql .= " $clause ";
         return $this;
     }
     
