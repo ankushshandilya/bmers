@@ -57,16 +57,16 @@ class DB {
     }
     
     //RUN AND QUERY IN FACT IS THE SAME BUT RUN HAS NO PARAM
-    //RUN ASSUME $this->Model->sql has value
+    //RUN ASSUME $this->sql has value
     public function run() {
         $this->connect();
-        $this->Query_ID = $this->Link_ID->query($this->Model->sql);
+        $this->Query_ID = $this->Link_ID->query($this->sql);
 
         $this->Row = 0;
         $this->Errno = $this->Link_ID->errorInfo()[1];
         $this->Error = $this->Link_ID->errorInfo()[2];
         if (!$this->Query_ID)
-            $this->halt("Invalid SQL: " . $this->Model->sql);
+            $this->halt("Invalid SQL: " . $this->sql);
         return $this->Query_ID;
     }    
 
@@ -198,45 +198,45 @@ class DB {
     }
     
     public function select(){
-        $this->Model->sql = "SELECT ";
+        $this->sql = "SELECT ";
         return $this;
     }
     public function fields($fields = []){
-        $this->Model->sql .= implode(',', $fields);
+        $this->sql .= implode(',', $fields);
         return $this;
     }
     
     public function on($left, $right){
-        $this->Model->sql .= "ON $left = $right ";
+        $this->sql .= "ON $left = $right ";
         return $this;
     }
     
     public function join($table){
-        $this->Model->sql .= "JOIN $table ";
+        $this->sql .= "JOIN $table ";
         return $this;
     }
     public function leftJoin(){
-        $this->Model->sql .= "LEFT JOIN $table ";
+        $this->sql .= "LEFT JOIN $table ";
         return $this;
     }
     
     public function rightJoin(){
-        $this->Model->sql .= "RIGHT JOIN $table ";
+        $this->sql .= "RIGHT JOIN $table ";
         return $this;
     }
     
     public function where($where){
-        $this->Model->sql .= "WHERE $where ";
+        $this->sql .= "WHERE $where ";
         return $this;
     }    
 
     public function aand($and){
-        $this->Model->sql .= "AND $and ";
+        $this->sql .= "AND $and ";
         return $this;
     }    
     
     public function clause($clause){
-        $this->Model->sql .= "$clause ";
+        $this->sql .= "$clause ";
         return $this;
     }
     
