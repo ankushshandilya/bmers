@@ -206,6 +206,11 @@ class DB {
         return $this;
     }
     
+    public function from($table){
+        $this->sql .= "FROM $table ";
+        return $this;
+    }
+    
     public function on($left, $right){
         $this->sql .= "ON $left = $right ";
         return $this;
