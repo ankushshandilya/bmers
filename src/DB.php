@@ -220,12 +220,12 @@ class DB {
         $this->sql .= " JOIN $table ";
         return $this;
     }
-    public function leftJoin(){
+    public function leftJoin($table){
         $this->sql .= " LEFT JOIN $table ";
         return $this;
     }
     
-    public function rightJoin(){
+    public function rightJoin($table){
         $this->sql .= " RIGHT JOIN $table ";
         return $this;
     }
