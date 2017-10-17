@@ -147,12 +147,32 @@ class DB {
             endforeach;
             echo "UPDATE {$this->table} SET " . rtrim($temp, ", ") . " WHERE " . ($col == NULL ? 'id' : $col) . " = $id";
         else:
-            foreach ($this->data as $k => $v):
-                $temp .= $k . " = :" . $k . ", ";
-                $bind[":$k"] = $v;
-            endforeach;
-            $bind[":id"] = $id;
-            $this->sql = "UPDATE {$this->table} SET " . rtrim($temp, ", ") . " WHERE " . ($col == NULL ? 'id' : $col) . " = :id";
+            //MORE THAN ONE CONDITIONS IN WHERE CLAUSE
+            if(is_array($id)):
+                foreach ($this->data as $k => $v):
+                    $temp .= $k . " = :" . $k . ", ";
+                    $bind[":$k"] = $v;
+                endforeach;
+                
+                $where = "WHERE ";
+                foreach($id as $k => $v):
+                    if($where === "WHERE "):
+                        $where .= "$k = '$v'";
+                    else:
+                        $where .= "AND $k = '$v'";
+                    endif;
+                endforeach;
+                
+                $this->sql = "UPDATE {$this->table} SET " . rtrim($temp, ", ") . " $where";
+                
+            else:
+                foreach ($this->data as $k => $v):
+                    $temp .= $k . " = :" . $k . ", ";
+                    $bind[":$k"] = $v;
+                endforeach;
+                $bind[":id"] = $id;
+                $this->sql = "UPDATE {$this->table} SET " . rtrim($temp, ", ") . " WHERE " . ($col == NULL ? 'id' : $col) . " = :id";
+            endif;
             return $this->Link_ID->prepare($this->sql)->execute($bind);
         endif;
     }
