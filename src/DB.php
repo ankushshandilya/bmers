@@ -102,6 +102,12 @@ class DB {
         return $this->Query_ID->rowCount();
     }
 
+    public function truncate() {
+        $this->connect();
+        $this->sql = "TRUNCATE {$this->table} ";
+        $this->query($this->sql);
+        return $this;    }
+    
     public function drop($id) {
         $this->connect();
         $this->sql = "DELETE FROM {$this->table} WHERE id = :id";
