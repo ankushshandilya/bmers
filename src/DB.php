@@ -223,8 +223,8 @@ class DB {
         return $this;
     }
     
-    public function select(){
-        $this->sql = "SELECT ";
+    public function select($type = null){
+        $this->sql = "SELECT $type";
         return $this;
     }
     public function fields($fields = []){
