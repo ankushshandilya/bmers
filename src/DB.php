@@ -224,7 +224,7 @@ class DB {
     }
     
     public function select($type = null){
-        $this->sql = "SELECT $type";
+        $this->sql = "SELECT $type ";
         return $this;
     }
     public function fields($fields = []){
@@ -263,6 +263,11 @@ class DB {
 
     public function aand($and){
         $this->sql .= " AND $and ";
+        return $this;
+    }    
+    
+    public function groupby($field){
+        $this->sql .= " GROUP BY $field ";
         return $this;
     }    
     
