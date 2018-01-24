@@ -21,6 +21,7 @@ class DB {
     public $debug = false;
     public $table = NULL;
     public $sql = NULL;
+    public $debugSQL = null;
     public $created_at = true;
     public $updated_at = true;
 
@@ -126,7 +127,7 @@ class DB {
 		VALUES ( :" . implode(" , :", array_keys($array)) . ")";
 
         if ($this->debug):
-            echo "INSERT INTO {$this->table} (" . implode(',', array_keys($array)) . " )
+            $this->debugSQL =  "INSERT INTO {$this->table} (" . implode(',', array_keys($array)) . " )
             VALUES ( '" . implode("' ,'", array_values($array)) . "')";
         endif;
 
@@ -151,7 +152,7 @@ class DB {
                     $temp .= $k . " = '" . $v . "', ";
                 endif;
             endforeach;
-            echo "UPDATE {$this->table} SET " . rtrim($temp, ", ") . " WHERE " . ($col == NULL ? 'id' : $col) . " = $id";
+            $this->debugSQL =  "UPDATE {$this->table} SET " . rtrim($temp, ", ") . " WHERE " . ($col == NULL ? 'id' : $col) . " = $id";
         else:
             //MORE THAN ONE CONDITIONS IN WHERE CLAUSE
             if(is_array($id)):
