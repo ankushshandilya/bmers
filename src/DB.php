@@ -238,8 +238,8 @@ class DB {
         return $this;
     }
     
-    public function on($left, $right){
-        $this->sql .= " ON $left = $right ";
+    public function on($left, $right, $clause = null){
+        $this->sql .= " ON $left = $right $clause";
         return $this;
     }
     
