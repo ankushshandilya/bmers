@@ -13,7 +13,7 @@ class DB {
     private $Password = null;
     public $Link_ID = false;   // Result of mysql_connect(). 
     public $Query_ID;          // Result of most recent mysql_query(). 
-    public $Record = array(); // current mysql_fetch_array()-result. 
+    public $Record; // current mysql_fetch_array()-result. 
     public $Row;                // current row number. 
     public $Errno = 0;       // error state of query... 
     public $Error = "";
@@ -38,7 +38,7 @@ class DB {
 
     public function connect() {
         if (false == $this->Link_ID)
-            $this->Link_ID = new PDO("mysql:host={$this->Host};dbname={$this->Database};charset=utf8", $this->User, $this->Password);
+            $this->Link_ID = new PDO("mysql:host={$this->Host};dbname={$this->Database};charset=utf8mb4", $this->User, $this->Password);
         if (!$this->Link_ID)
             $this->halt("Link-ID == false, connect failed");
         if (!$this->Link_ID->query(sprintf("use %s", $this->Database)))
