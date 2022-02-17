@@ -111,9 +111,17 @@ class DB {
     
     public function drop($id, $col = NULL) {
         $this->connect();
-        $this->sql = $col == NULL ? "DELETE FROM {$this->table} WHERE id = :id" : "DELETE FROM {$this->table} WHERE $col = :id";
-        $statement = $this->Link_ID->prepare($this->sql);
-        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+
+        if($col == NULL):
+            $this->sql = "DELETE FROM {$this->table} WHERE id = :id";
+            $statement = $this->Link_ID->prepare($this->sql);
+            $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        else:
+            $this->sql = "DELETE FROM {$this->table} WHERE $col = :id";
+            $statement = $this->Link_ID->prepare($this->sql);
+            $statement->bindParam(':id', $id, PDO::PARAM_STR);
+        endif;
+        
         $statement->execute();
         return $this;
     }
@@ -184,8 +192,10 @@ class DB {
         endif;
     }
 
-    public function one($id, $col = NULL) {
-        $this->sql = $col == NULL ? "SELECT * FROM {$this->table} WHERE id=$id" : "SELECT * FROM {$this->table} WHERE $col=$id";
+    public function one($id, $col = NULL) 
+    {
+
+        $this->sql = $col == NULL ? "SELECT * FROM {$this->table} WHERE id='$id'" : "SELECT * FROM {$this->table} WHERE $col='$id'";
         $this->query($this->sql);
         $this->single();
         return $this;
