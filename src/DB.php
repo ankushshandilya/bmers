@@ -147,6 +147,15 @@ class DB {
         return $this->Link_ID->lastInsertId();
     }
 
+
+    public function toggle($col, $id) {
+
+        $this->sql = "UPDATE {$this->table} SET  $col = NOT $col WHERE id = $id";
+        $this->query($this->sql);
+        return $this;
+    }    
+
+
     public function update($id, $col = NULL) {
         if ($this->updated_at)
             $this->data->updated_at = date('Y-m-d H:i:s');
