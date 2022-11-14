@@ -142,6 +142,24 @@ class DB {
         $statement = $this->Link_ID->prepare($this->sql);
         return $statement->execute($array) ? $this : false;
     }
+    
+    
+    public function createIgnore() {
+        if ($this->created_at) $this->data->created_at = date('Y-m-d H:i:s');
+        if ($this->updated_at) $this->data->updated_at = date('Y-m-d H:i:s');
+        $array = get_object_vars($this->data);
+        $this->connect();
+        $this->sql = "INSERT IGNORE INTO {$this->table} (" . implode(',', array_keys($array)) . " )
+		VALUES ( :" . implode(" , :", array_keys($array)) . ")";
+
+        if ($this->debug):
+            $this->debugSQL =  "INSERT IGNORE INTO {$this->table} (" . implode(',', array_keys($array)) . " )
+            VALUES ( '" . implode("' ,'", array_values($array)) . "')";
+        endif;
+
+        $statement = $this->Link_ID->prepare($this->sql);
+        return $statement->execute($array) ? $this : false;
+    }    
 
     public function insertID() {
         return $this->Link_ID->lastInsertId();
