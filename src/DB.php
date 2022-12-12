@@ -24,6 +24,7 @@ class DB {
     public $debugSQL = null;
     public $created_at = true;
     public $updated_at = true;
+    private $cols;
 
     public function __construct($host, $db, $user, $pass) {
         $this->Host = $host;
@@ -222,7 +223,12 @@ class DB {
     public function one($id, $col = NULL) 
     {
 
-        $this->sql = $col == NULL ? "SELECT * FROM {$this->table} WHERE id='$id'" : "SELECT * FROM {$this->table} WHERE $col='$id'";
+        if(isset( $this->cols )):
+            $this->sql = $col == NULL ? "SELECT {$this->cols} FROM {$this->table} WHERE id='$id'" : "SELECT {$this->cols} FROM {$this->table} WHERE $col='$id'";
+        else:
+            $this->sql = $col == NULL ? "SELECT * FROM {$this->table} WHERE id='$id'" : "SELECT * FROM {$this->table} WHERE $col='$id'";
+        endif;
+        
         $this->query($this->sql);
         $this->single();
         return $this;
@@ -260,6 +266,11 @@ class DB {
         $this->table = $table;
         return $this;
     }
+
+    public function setCols($cols = []) {
+        $this->cols = implode(", ", $cols);
+        return $this;
+    }    
     
     public function select($type = null){
         $this->sql = "SELECT $type ";
