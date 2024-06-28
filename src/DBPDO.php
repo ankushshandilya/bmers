@@ -194,6 +194,11 @@ class DBPDO {
         return $statement->execute($bind);
     }
 
+    public function set($table) {
+        $this->table = $table;
+        return $this;
+    }
+
     public function one($id, $col = NULL) {
         if (isset($this->cols)):
             $this->sql = $col == NULL ? "SELECT {$this->cols} FROM {$this->table} WHERE id = :id" : "SELECT {$this->cols} FROM {$this->table} WHERE $col = :id";
