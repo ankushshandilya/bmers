@@ -11,7 +11,7 @@ class DBPDO {
     private $Database = null;
     private $User = null;
     private $Password = null;
-    public $Link_ID = false;   
+    public $Link_ID;   
     public $Query_ID;          
     public $Record; 
     public $Row;                
